@@ -26,3 +26,35 @@ const dominos = {
   zipcode: 54321,
   acceptsReservations: true,
 };
+
+function printPizzaPlace(obj) {
+  for (const key in obj) {
+    console.log(key, obj[key]); //initially opted for Object.entries()
+  }
+}
+// printPizzaPlace(dominos);
+
+function toppingsPriceRange(pizzaPlace) {
+  let low = 100; //didn't consider the idea of using "Infinity" at first!
+  let high = 0;
+  for (const key in pizzaPlace.pizzaToppings) {
+    if (pizzaPlace.pizzaToppings[key] < low) {
+      //mistakenly tried directly comparing ...[key] to ...[key + 1] instead of using the variables I had already created as placeholders
+      low = pizzaPlace.pizzaToppings[key];
+    } else if (pizzaPlace.pizzaToppings[key] > high) {
+      high = pizzaPlace.pizzaToppings[key];
+    }
+  }
+  return [low, high];
+}
+console.log(toppingsPriceRange(dominos));
+
+const calculateAverageRating = (pizzaPlace) => {
+  let sum = 0;
+  let entryCount = Object.values(pizzaPlace.starReviews).length;
+  for (var i in pizzaPlace.starReviews) {
+    sum += pizzaPlace.starReviews[i];
+  }
+  return sum / entryCount;
+};
+console.log(calculateAverageRating(dominos));
